@@ -44,7 +44,21 @@ export async function getPredictions() {
   return predictions;
 }
 
-export async function getAllPredictions() {
+export type PredictionWithProfile = {
+  id: number;
+  idMatch: number;
+  idProfile: string;
+  team1Prediction: number;
+  team2Prediction: number;
+  points: number | null;
+  profiles: {
+    id: string;
+    nome: string;
+    apelido: string | null;
+  } | null;
+};
+
+export async function getAllPredictions(): Promise<PredictionWithProfile[]> {
   const { data, error } = await supabase.from("predictions").select(`
       id,
       idMatch,
@@ -64,7 +78,7 @@ export async function getAllPredictions() {
     throw new Error(error.message);
   }
 
-  return data;
+  return data as unknown as PredictionWithProfile[];
 }
 
 export async function getMyPredictions(id: string) {
