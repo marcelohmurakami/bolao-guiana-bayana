@@ -103,6 +103,7 @@ export function Resultados() {
       case "FINISHED":
         return "Encerrado";
       case "IN_PLAY":
+        return "Ao vivo"
       case "LIVE":
         return "Ao vivo";
       case "PAUSED":
@@ -166,7 +167,7 @@ export function Resultados() {
                   <ScoreNumber>
                     {hasScore ? (
                       <>
-                        {match.team1Score} <span>x</span> {match.team2Score}
+                        {match?.team1Score} <span>x</span> {match?.team2Score}
                       </>
                     ) : (
                       <>
@@ -195,8 +196,8 @@ export function Resultados() {
                     {matchPredictions.map((prediction) => (
                       <PredictionRow key={prediction.id}>
                         <PredictionUser>
-                          {prediction.profiles?.[0]?.apelido ||
-                            prediction.profiles?.[0]?.nome ||
+                          {
+                            prediction?.profiles?.nome ||
                             "Participante"}
                         </PredictionUser>
 
