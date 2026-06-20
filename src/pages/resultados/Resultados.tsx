@@ -203,7 +203,7 @@ export function Resultados() {
                           {prediction.team1Prediction} x{" "}
                           {prediction.team2Prediction}
                           {match.status === "FINISHED" && (
-                            <PredictionPoints>
+                            <PredictionPoints points={prediction.points ?? 0}>
                               {prediction.points ?? 0} pts
                             </PredictionPoints>
                           )}

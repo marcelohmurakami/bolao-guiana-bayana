@@ -337,17 +337,106 @@ export const PredictionScore = styled.div`
   }
 `;
 
-export const PredictionPoints = styled.span`
-  background: rgba(34, 197, 94, 0.14);
-  color: #68f29a;
-  padding: 0.2rem 0.5rem;
+interface PredictionPointsProps {
+  points: number;
+}
+
+export const PredictionPoints = styled.span<PredictionPointsProps>`
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+
+  padding: 0.25rem 0.65rem;
   border-radius: 999px;
   font-size: 0.78rem;
   font-weight: 700;
+  transition: all 0.2s ease;
+
+  background: ${({ points }) => {
+    if (points === 5) {
+      return `
+        linear-gradient(
+          135deg,
+          rgba(255, 215, 0, 0.28),
+          rgba(255, 184, 28, 0.18)
+        )
+      `;
+    }
+
+    if (points === 3) {
+      return `
+        linear-gradient(
+          135deg,
+          rgba(34, 197, 94, 0.22),
+          rgba(22, 163, 74, 0.14)
+        )
+      `;
+    }
+
+    return `
+      linear-gradient(
+        135deg,
+        rgba(239, 68, 68, 0.14),
+        rgba(185, 28, 28, 0.08)
+      )
+    `;
+  }};
+
+  color: ${({ points }) => {
+    if (points === 5) return "#FFE066";
+    if (points === 3) return "#68F29A";
+    return "#FF8A8A";
+  }};
+
+  border: 1px solid
+    ${({ points }) => {
+      if (points === 5) return "rgba(255, 215, 0, 0.55)";
+      if (points === 3) return "rgba(34, 197, 94, 0.35)";
+      return "rgba(239, 68, 68, 0.2)";
+    }};
+
+  box-shadow: ${({ points }) => {
+    if (points === 5) {
+      return `
+        0 0 10px rgba(255, 215, 0, 0.35),
+        0 0 20px rgba(255, 215, 0, 0.12)
+      `;
+    }
+
+    if (points === 3) {
+      return `
+        0 0 8px rgba(34, 197, 94, 0.25),
+        0 0 16px rgba(34, 197, 94, 0.08)
+      `;
+    }
+
+    return "none";
+  }};
+
+  &:hover {
+    transform: translateY(-1px);
+
+    ${({ points }) =>
+      points === 5 &&
+      `
+        box-shadow:
+          0 0 14px rgba(255, 215, 0, 0.45),
+          0 0 28px rgba(255, 215, 0, 0.18);
+      `}
+
+    ${({ points }) =>
+      points === 3 &&
+      `
+        box-shadow:
+          0 0 10px rgba(34, 197, 94, 0.35),
+          0 0 20px rgba(34, 197, 94, 0.12);
+      `}
+  }
 
   @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
     font-size: 0.7rem;
-    padding: 0.18rem 0.4rem;
+    padding: 0.18rem 0.45rem;
   }
 `;
 
